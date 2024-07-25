@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,6 +31,12 @@ SECRET_KEY = 'django-insecure-1!o**)lhz*fb@364d#+xv%*i-ug4st@oshk(rb=_)c-*pe5qws
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -47,6 +54,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+ROOT_URLCONF = 'tradie_project.urls'
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
@@ -132,12 +142,21 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = 'static/'
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
