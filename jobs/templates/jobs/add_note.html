@@ -1,0 +1,12 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Add Note{% endblock %}
+
+{% block content %}
+<h2>Add Note for Job ID: {{ job.id }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

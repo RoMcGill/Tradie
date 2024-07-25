@@ -1,0 +1,67 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Job Details{% endblock %}
+
+{% block content %}
+<h2>Job Details for Job ID: {{ job.id }}</h2>
+
+<h2>Customer Details</h2>
+<p>Name: {{ customer.name }}</p>
+<p>Contact Info: {{ customer.contact_info }}</p>
+<p>Address: {{ customer.address }}</p>
+
+<h2>Tradesman Details</h2>
+<p>Username: {{ tradesman.username }}</p>
+<p>Role: {{ tradesman.role }}</p>
+
+<h2>Job Status</h2>
+<p>Status: {{ job.status }}</p>
+<p>Created At: {{ job.created_at }}</p>
+<p>Updated At: {{ job.updated_at }}</p>
+
+<h2>Notes</h2>
+<ul>
+    {% for note in notes %}
+    <li>{{ note.note }} ({{ note.created_at }})</li>
+    {% endfor %}
+</ul>
+
+<h2>Photos</h2>
+<ul>
+    {% for photo in photos %}
+    <li><img src="{{ photo.photo.url }}" alt="Photo" /></li>
+    {% endfor %}
+</ul>
+
+<h2>Equipment</h2>
+<ul>
+    {% for item in job_equipment %}
+    <li>{{ item.equipment.name }} - Quantity: {{ item.quantity }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Quotes</h2>
+<ul>
+    {% for quote in quotes %}
+    <li>Total Cost: {{ quote.total_cost }} ({{ quote.created_at }})</li>
+    <li>Details: {{ quote.equipment_details }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Invoices</h2>
+<ul>
+    {% for invoice in invoices %}
+    <li>Total Cost: {{ invoice.total_cost }} ({{ invoice.created_at }})</li>
+    <li>Details: {{ invoice.invoice_details }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Compliance</h2>
+{% if compliance %}
+<p>Law Info: {{ compliance.law_info }}</p>
+<p>Standard Info: {{ compliance.standard_info }}</p>
+<p>Tax Info: {{ compliance.tax_info }}</p>
+{% else %}
+<p>No compliance information available.</p>
+{% endif %}
+{% endblock %}

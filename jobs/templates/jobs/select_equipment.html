@@ -1,0 +1,32 @@
+{% extends 'jobs/base.html' %}
+
+{% block title %}Select Equipment{% endblock %}
+
+{% block content %}
+<h2>Select Equipment for Job ID: {{ job.id }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <div id="formset-container">
+        {% for form in formset %}
+        <div class="formset-item">
+            {{ form.as_p }}
+        </div>
+        {% endfor %}
+    </div>
+    <button type="button" id="add-more">Add More Equipment</button>
+    <button type="submit">Save</button>
+</form>
+
+<script>
+    $(document).ready(function(){
+        var form_idx = {{ formset.total_form_count }};
+        $("#add-more").click(function(){
+            var form_html = '<div class="formset-item">' + $('#formset-container .formset-item:first').html().replace(/__prefix__/g, form_idx) + '</div>';
+            $('#formset-container').append(form_html);
+            form_idx++;
+        });
+    });
+</script>
+{% endblock %}
+

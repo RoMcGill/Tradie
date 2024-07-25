@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Add Equipment</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/styles.css' %}">
+</head>
+<body>
+    <h1>Add Equipment for Job ID: {{ job.id }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+</body>
+</html>

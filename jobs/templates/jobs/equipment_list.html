@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>equipment List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'jobs/styles.css' %}">
+</head>
+<body>
+    <h1>equipment List</h1>
+    <ul>
+        {% for item in equipment %}
+        <li>
+            Name: {{ item.name }} - Description: {{ item.description }} - Price: {{ item.price }} - Supplier ID: {{ item.supplier_id }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
